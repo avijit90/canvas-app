@@ -1,25 +1,33 @@
 package com.canvas.app.model;
 
-import java.util.List;
+public abstract class Shape {
 
-public class Shape {
+    private String input;
+    static String DEFAULT_COLOR = "X";
 
-    List<HorizontalLine> horizontalLines;
-    List<VerticalLine> verticalLines;
+    int x1;
+    int y1;
+    int x2;
+    int y2;
 
-    public List<HorizontalLine> getHorizontalLines() {
-        return horizontalLines;
+    Shape(String userInput) {
+
+        String[] split = userInput.trim().split("\\s+");
+
+        this.x1 = Integer.parseInt(split[1]);
+        this.y1 = Integer.parseInt(split[2]);
+        this.x2 = Integer.parseInt(split[3]);
+        this.y2 = Integer.parseInt(split[4]);
+
     }
 
-    public void setHorizontalLines(List<HorizontalLine> horizontalLines) {
-        this.horizontalLines = horizontalLines;
+    public String getInput() {
+        return input;
     }
 
-    public List<VerticalLine> getVerticalLines() {
-        return verticalLines;
+    public void setInput(String input) {
+        this.input = input;
     }
 
-    public void setVerticalLines(List<VerticalLine> verticalLines) {
-        this.verticalLines = verticalLines;
-    }
+    abstract void draw(String input, Canvas canvas);
 }
