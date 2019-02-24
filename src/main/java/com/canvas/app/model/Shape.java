@@ -29,5 +29,5 @@ public abstract class Shape {
         this.input = input;
     }
 
-    abstract void draw(String input, Canvas canvas);
+    public abstract void draw(String input, Canvas canvas);
 }

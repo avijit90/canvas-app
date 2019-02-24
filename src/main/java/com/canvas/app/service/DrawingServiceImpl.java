@@ -2,11 +2,13 @@ package com.canvas.app.service;
 
 import com.canvas.app.model.Canvas;
 
-public class PaintServiceImpl implements IPaintService {
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
+public class DrawingServiceImpl implements IDrawingService {
 
 
     @Override
-    public void paintCanvas(Canvas canvas) {
+    public void renderCanvas(Canvas canvas) {
 
         if (isBlankMatrix(canvas.getMatrix())) {
             canvas.setMatrix(createAndFillFreshMatrix(canvas.getHeight(), canvas.getWidth()));
@@ -16,6 +18,41 @@ public class PaintServiceImpl implements IPaintService {
         paintLeftAndRightBorders(canvas.getHeight(), canvas.getWidth(), canvas.getMatrix());
         paintFooter(canvas.getWidth());
 
+    }
+
+    @Override
+    public void drawShapes(Canvas canvas) {
+        if (isNotEmpty(canvas.getShapes()))
+            canvas.getShapes().stream().forEach(shape -> shape.draw(shape.getInput(), canvas));
+    }
+
+    @Override
+    public void bucketFill(Canvas canvas, int x, int y, String color) {
+
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        String[][] matrix = canvas.getMatrix();
+
+        fillSinglePixelAndExpand(x, y, color, matrix, width, height);
+        canvas.setMatrix(matrix);
+    }
+
+    private void fillSinglePixelAndExpand(int x, int y, String color, String[][] matrix, int width, int height) {
+
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            return;
+        }
+
+        if (matrix[y][x].equals("X") || matrix[y][x].equals(color)) {
+            return;
+        }
+
+        matrix[y][x] = color;
+
+        fillSinglePixelAndExpand(x + 1, y, color, matrix, width, height);
+        fillSinglePixelAndExpand(x, y + 1, color, matrix, width, height);
+        fillSinglePixelAndExpand(x - 1, y, color, matrix, width, height);
+        fillSinglePixelAndExpand(x, y - 1, color, matrix, width, height);
     }
 
     private String[][] createAndFillFreshMatrix(int height, int width) {

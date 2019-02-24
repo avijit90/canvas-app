@@ -17,12 +17,11 @@ public class Canvas {
         this.height = height;
     }
 
-    public void addShapeToCanvas(Shape shape) {
+    public void addShape(Shape shape) {
         if (CollectionUtils.isEmpty(shapes))
             shapes = new ArrayList<>();
 
         shapes.add(shape);
-        shape.draw(shape.getInput(), this);
     }
 
     public List<Shape> getShapes() {

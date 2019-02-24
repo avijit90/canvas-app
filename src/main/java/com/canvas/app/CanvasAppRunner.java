@@ -2,8 +2,8 @@ package com.canvas.app;
 
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Shape;
-import com.canvas.app.service.PaintServiceImpl;
-import com.canvas.app.service.IPaintService;
+import com.canvas.app.service.DrawingServiceImpl;
+import com.canvas.app.service.IDrawingService;
 import com.canvas.app.service.ShapeFactory;
 
 import java.util.Scanner;
@@ -22,8 +22,8 @@ public class CanvasAppRunner {
 
         System.out.println("---Application started successfully !----");
         Canvas canvas = null;
-        IPaintService paintService = null;
-        ShapeFactory shapeFactory;
+        IDrawingService paintService = null;
+        ShapeFactory shapeFactory = null;
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
@@ -44,9 +44,9 @@ public class CanvasAppRunner {
 
                 if (isCanvasUndefined(canvas)) {
                     if (startsWithIgnoreCase(userInput, "c")) {
-                        paintService = new PaintServiceImpl();
+                        paintService = new DrawingServiceImpl();
                         canvas = new Canvas(parseInt(split[1]), parseInt(split[2]));
-                        paintService.paintCanvas(canvas);
+                        paintService.renderCanvas(canvas);
                         continue;
                     } else {
                         System.out.println("Please create a canvas to start drawing! ");
@@ -54,12 +54,22 @@ public class CanvasAppRunner {
                     }
                 }
 
-                shapeFactory = new ShapeFactory();
-                Shape shape = shapeFactory.createShape(userInput);
-                canvas.addShapeToCanvas(shape);
-                paintService.paintCanvas(canvas);
+                if (shapeFactory == null) {
+                    shapeFactory = new ShapeFactory();
+                }
 
+                if (!startsWithIgnoreCase(userInput, "b")) {
+                    Shape shape = shapeFactory.createShape(userInput);
+                    canvas.addShape(shape);
+                    paintService.drawShapes(canvas);
+                    paintService.renderCanvas(canvas);
+                } else {
+                    paintService.bucketFill(canvas, parseInt(split[1]), parseInt(split[2]), split[3]);
+                    paintService.renderCanvas(canvas);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
