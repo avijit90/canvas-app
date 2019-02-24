@@ -1,6 +1,7 @@
 package com.canvas.app.model;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,11 @@ public class Canvas {
     private String[][] matrix;
     private int width;
     private int height;
+    private Request request;
 
-    public Canvas(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public Canvas(Request request) {
+        this.width = MapUtils.getInteger(request.getDimensions(), "x1");
+        this.height = MapUtils.getInteger(request.getDimensions(), "y1");
     }
 
     public void addShape(Shape shape) {
@@ -54,5 +56,13 @@ public class Canvas {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 }

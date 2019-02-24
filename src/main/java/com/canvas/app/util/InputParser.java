@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Collections.singletonList;
 import static java.util.regex.Pattern.matches;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -20,7 +21,7 @@ public class InputParser {
         List<String> alphabetTokens = getAlphabetTokensFromInput(inputTokens);
 
         Request.RequestBuilder requestBuilder = new Request.RequestBuilder();
-        requestBuilder.requestType(inputTokens[1]);
+        requestBuilder.requestType(inputTokens[0]);
         requestBuilder.dimensions(getDimensions(numericTokens));
         requestBuilder.color(isNotEmpty(alphabetTokens) ? alphabetTokens.get(0) : null);
         return requestBuilder.build();
@@ -47,11 +48,10 @@ public class InputParser {
     }
 
     private List<String> getAlphabetTokensFromInput(String[] inputTokens) {
-        List<String> alphabetTokens;
-        Arrays.asList(inputTokens).remove(0);
-        alphabetTokens = Arrays.stream(inputTokens)
-                .filter(token -> matches("[a-zA-Z]+", token)).collect(toList());
-        return alphabetTokens;
+        if (matches("[a-zA-Z]+", inputTokens[inputTokens.length - 1])) {
+            return singletonList(inputTokens[inputTokens.length - 1]);
+        }
+        return null;
     }
 
     private List<String> getNumericTokensFromInput(String[] inputTokens) {

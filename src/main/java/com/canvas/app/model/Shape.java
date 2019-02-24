@@ -1,5 +1,7 @@
 package com.canvas.app.model;
 
+import static org.apache.commons.collections4.MapUtils.getInteger;
+
 public abstract class Shape {
 
     private String input;
@@ -10,6 +12,8 @@ public abstract class Shape {
     int x2;
     int y2;
 
+    Request request;
+
     Shape(String userInput) {
 
         String[] split = userInput.trim().split("\\s+");
@@ -19,6 +23,15 @@ public abstract class Shape {
         this.x2 = Integer.parseInt(split[3]);
         this.y2 = Integer.parseInt(split[4]);
 
+    }
+
+    public Shape(Request request) {
+        this.request = request;
+
+        this.x1 = getInteger(request.getDimensions(), "x1");
+        this.y1 = getInteger(request.getDimensions(), "y1");
+        this.x2 = getInteger(request.getDimensions(), "x2");
+        this.y2 = getInteger(request.getDimensions(), "y2");
     }
 
     public String getInput() {

@@ -7,6 +7,10 @@ public class Rectangle extends Shape {
         super(userInput);
     }
 
+    public Rectangle(Request request) {
+        super(request);
+    }
+
     @Override
     public void draw(String input, Canvas canvas) {
 

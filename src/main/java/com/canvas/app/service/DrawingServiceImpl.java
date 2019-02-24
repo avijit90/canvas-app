@@ -1,6 +1,8 @@
 package com.canvas.app.service;
 
 import com.canvas.app.model.Canvas;
+import com.canvas.app.model.Request;
+import org.apache.commons.collections4.MapUtils;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
@@ -27,11 +29,14 @@ public class DrawingServiceImpl implements IDrawingService {
     }
 
     @Override
-    public void bucketFill(Canvas canvas, int x, int y, String color) {
+    public void bucketFill(Canvas canvas, Request request) {
 
         int width = canvas.getWidth();
         int height = canvas.getHeight();
         String[][] matrix = canvas.getMatrix();
+        int x = MapUtils.getInteger(request.getDimensions(), "x1");
+        int y = MapUtils.getInteger(request.getDimensions(), "y1");
+        String color = request.getColor();
 
         fillSinglePixelAndExpand(x, y, color, matrix, width, height);
         canvas.setMatrix(matrix);

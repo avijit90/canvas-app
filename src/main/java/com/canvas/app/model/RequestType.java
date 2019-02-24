@@ -1,10 +1,18 @@
 package com.canvas.app.model;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+import static java.util.Arrays.stream;
+import static org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase;
+
 public enum RequestType {
 
-    CANVAS ("C", 2, 0),
-    LINE ("L", 4, 0),
-    RECTANGLE ("R", 4, 0),
+    CANVAS("C", 2, 0),
+    LINE("L", 4, 0),
+    RECTANGLE("R", 4, 0),
     BUCKET_FILL("B", 2, 1),
     QUIT("Q", 0, 0);
 
@@ -26,5 +34,13 @@ public enum RequestType {
         return numericParamsCount;
     }
 
-    public String getIdentifier() { return identifier; }
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public static RequestType getEnumFromIdentifier(String input) {
+        Optional<RequestType> optionalRequestType = stream(RequestType.values())
+                .filter(e -> equalsAnyIgnoreCase(e.getIdentifier(), input)).findFirst();
+        return optionalRequestType.isPresent() ? optionalRequestType.get() : null;
+    }
 }

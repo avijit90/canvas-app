@@ -1,6 +1,7 @@
 package com.canvas.app.service;
 
 import com.canvas.app.model.Canvas;
+import com.canvas.app.model.Request;
 
 public interface IDrawingService {
 
@@ -8,5 +9,5 @@ public interface IDrawingService {
 
     void drawShapes(Canvas canvas);
 
-    void bucketFill(Canvas canvas, int x, int y, String color);
+    void bucketFill(Canvas canvas, Request request);
 }

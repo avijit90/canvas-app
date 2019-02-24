@@ -1,7 +1,5 @@
 package com.canvas.app.model;
 
-import org.apache.commons.lang3.EnumUtils;
-
 import java.util.Map;
 
 public class Request {
@@ -37,7 +35,7 @@ public class Request {
         private String color;
 
         public RequestBuilder requestType(String requestType) {
-            this.requestType = EnumUtils.getEnumIgnoreCase(RequestType.class, requestType);
+            this.requestType = RequestType.getEnumFromIdentifier(requestType);
             return this;
         }
 

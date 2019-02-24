@@ -1,8 +1,10 @@
-package com.canvas.app.service;
+package com.canvas.app.util;
 
+import com.canvas.app.exceptions.CanvasUndefinedException;
+import com.canvas.app.exceptions.SemanticsIncorrectException;
+import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
-import com.canvas.app.util.InputParser;
 
 import static org.apache.commons.collections4.CollectionUtils.size;
 
@@ -10,13 +12,19 @@ public class RuleEngine {
 
     private InputParser inputParser = new InputParser();
 
-    public void processUserInput(String userInput) throws Exception {
+    public Request parseUserInput(String userInput, Canvas canvas) throws Exception {
 
         Request request = inputParser.parseInput(userInput);
 
         if (!isSemanticallyCorrect(request))
-            throw new Exception("");
+            throw new SemanticsIncorrectException("Incorrect input semantics. Please correct your input");
 
+        if ((request.getRequestType() == RequestType.LINE
+                || request.getRequestType() == RequestType.RECTANGLE
+                || request.getRequestType() == RequestType.BUCKET_FILL) && isCanvasUndefined(canvas))
+            throw new CanvasUndefinedException("Please create a canvas to start drawing!");
+
+        return request;
     }
 
     private boolean isSemanticallyCorrect(Request request) {
@@ -34,11 +42,9 @@ public class RuleEngine {
         return false;
     }
 
-    private boolean isWithinCanvas(){
 
-
-
-        return false;
+    private boolean isCanvasUndefined(Canvas canvas) {
+        return canvas == null;
     }
 
 }

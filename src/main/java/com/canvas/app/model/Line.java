@@ -7,6 +7,10 @@ public class Line extends Shape {
         super(userInput);
     }
 
+    public Line(Request request) {
+        super(request);
+    }
+
     public void draw(String input, Canvas canvas) {
 
         String[][] matrix = canvas.getMatrix();

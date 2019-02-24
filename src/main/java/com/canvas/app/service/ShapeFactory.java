@@ -1,28 +1,22 @@
 package com.canvas.app.service;
 
-import com.canvas.app.model.Line;
-import com.canvas.app.model.Rectangle;
-import com.canvas.app.model.Shape;
-
-import static org.apache.commons.lang3.StringUtils.startsWithIgnoreCase;
+import com.canvas.app.model.*;
 
 public class ShapeFactory {
 
 
-    public Shape createShape(String userInput){
+    public Shape createShape(Request request) {
 
         Shape shape = null;
 
-        if (startsWithIgnoreCase(userInput, "l")) {
-            shape = new Line(userInput);
-        } else if (startsWithIgnoreCase(userInput, "r")) {
-            shape = new Rectangle(userInput);
+        if (RequestType.LINE == request.getRequestType()) {
+            shape = new Line(request);
+        } else if (RequestType.RECTANGLE == request.getRequestType()) {
+            shape = new Rectangle(request);
         }
 
         return shape;
     }
-
-
 
 
 }
