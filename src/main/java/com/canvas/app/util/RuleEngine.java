@@ -5,12 +5,16 @@ import com.canvas.app.exceptions.SemanticsIncorrectException;
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static org.apache.commons.collections4.CollectionUtils.size;
 
+@Component
 public class RuleEngine {
 
-    private InputParser inputParser = new InputParser();
+    @Autowired
+    private InputParser inputParser;// = new InputParser();
 
     public Request parseUserInput(String userInput, Canvas canvas) throws Exception {
 

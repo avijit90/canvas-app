@@ -1,9 +1,10 @@
 package com.canvas.app.service;
 
 import com.canvas.app.model.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ShapeFactory {
-
 
     public Shape createShape(Request request) {
 

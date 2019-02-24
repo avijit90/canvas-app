@@ -1,6 +1,7 @@
 package com.canvas.app.util;
 
 import com.canvas.app.model.Request;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.CollectionUtils.size;
 
+@Component
 public class InputParser {
 
     public Request parseInput(String userInput) {

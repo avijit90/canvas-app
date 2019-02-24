@@ -5,14 +5,19 @@ import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
 import com.canvas.app.model.Shape;
-import com.canvas.app.service.DrawingServiceImpl;
 import com.canvas.app.service.IDrawingService;
 import com.canvas.app.service.ShapeFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RequestProcessor {
 
-    ShapeFactory shapeFactory = new ShapeFactory();
-    IDrawingService paintService = new DrawingServiceImpl();
+    @Autowired
+    ShapeFactory shapeFactory;// = new ShapeFactory();
+
+    @Autowired
+    IDrawingService paintService;// = new DrawingServiceImpl();
 
     public Canvas processRequest(Request request, Canvas canvas) throws InvalidRequestTypeException {
 

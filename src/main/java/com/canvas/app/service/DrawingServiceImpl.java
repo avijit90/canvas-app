@@ -3,11 +3,12 @@ package com.canvas.app.service;
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.stereotype.Service;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
+@Service
 public class DrawingServiceImpl implements IDrawingService {
-
 
     @Override
     public void renderCanvas(Canvas canvas) {
