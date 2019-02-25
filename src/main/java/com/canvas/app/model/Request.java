@@ -2,6 +2,8 @@ package com.canvas.app.model;
 
 import java.util.Map;
 
+import static com.canvas.app.model.RequestType.getEnumFromIdentifier;
+
 public class Request {
 
     private RequestType requestType;
@@ -35,7 +37,7 @@ public class Request {
         private String color;
 
         public RequestBuilder requestType(String requestType) {
-            this.requestType = RequestType.getEnumFromIdentifier(requestType);
+            this.requestType = getEnumFromIdentifier(requestType);
             return this;
         }
 

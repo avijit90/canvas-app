@@ -14,7 +14,7 @@ import static org.apache.commons.collections4.CollectionUtils.size;
 public class RuleEngine {
 
     @Autowired
-    private InputParser inputParser;// = new InputParser();
+    private InputParser inputParser;
 
     public Request parseUserInput(String userInput, Canvas canvas) throws Exception {
 
@@ -36,10 +36,10 @@ public class RuleEngine {
         RequestType requestType = request.getRequestType();
 
         if (requestType != null)
-            if (size(request.getDimensions()) == requestType.getNumericParamsCount()) {
-                int alphabetParamsCount = requestType.getAlphabetParamsCount();
-                if (alphabetParamsCount == 0
-                        || (alphabetParamsCount != 0 && request.getColor() != null))
+            if (size(request.getDimensions()) == requestType.getExpectedNumericParams()) {
+                int expectedAlphabetParams = requestType.getExpectedAlphabetParams();
+                if (expectedAlphabetParams == 0
+                        || (expectedAlphabetParams != 0 && request.getColor() != null))
                     return true;
             }
 

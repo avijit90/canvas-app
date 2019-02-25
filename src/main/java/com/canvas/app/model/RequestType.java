@@ -1,8 +1,5 @@
 package com.canvas.app.model;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
 import java.util.Optional;
 
 import static java.util.Arrays.stream;
@@ -17,21 +14,21 @@ public enum RequestType {
     QUIT("Q", 0, 0);
 
     private final String identifier;
-    private final int numericParamsCount;
-    private final int alphabetParamsCount;
+    private final int expectedNumericParams;
+    private final int expectedAlphabetParams;
 
-    RequestType(final String identifier, final int numericParamsCount, final int alphabetParamsCount) {
+    RequestType(final String identifier, final int expectedNumericParams, final int expectedAlphabetParams) {
         this.identifier = identifier;
-        this.numericParamsCount = numericParamsCount;
-        this.alphabetParamsCount = alphabetParamsCount;
+        this.expectedNumericParams = expectedNumericParams;
+        this.expectedAlphabetParams = expectedAlphabetParams;
     }
 
-    public int getAlphabetParamsCount() {
-        return alphabetParamsCount;
+    public int getExpectedAlphabetParams() {
+        return expectedAlphabetParams;
     }
 
-    public int getNumericParamsCount() {
-        return numericParamsCount;
+    public int getExpectedNumericParams() {
+        return expectedNumericParams;
     }
 
     public String getIdentifier() {

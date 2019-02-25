@@ -2,11 +2,6 @@ package com.canvas.app.model;
 
 public class Rectangle extends Shape {
 
-
-    public Rectangle(String userInput) {
-        super(userInput);
-    }
-
     public Rectangle(Request request) {
         super(request);
     }

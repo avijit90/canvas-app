@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class RequestProcessor {
 
     @Autowired
-    ShapeFactory shapeFactory;// = new ShapeFactory();
+    ShapeFactory shapeFactory;
 
     @Autowired
-    IDrawingService paintService;// = new DrawingServiceImpl();
+    IDrawingService paintService;
 
     public Canvas processRequest(Request request, Canvas canvas) throws InvalidRequestTypeException {
 

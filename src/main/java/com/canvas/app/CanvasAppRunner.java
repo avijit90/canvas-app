@@ -26,7 +26,7 @@ public class CanvasAppRunner {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 try {
-                    System.out.println("-->> Command <<--");
+                    System.out.print("Enter command : ");
                     String userInput = scanner.nextLine();
                     orchestrationService.execute(userInput);
                 } catch (Exception e) {

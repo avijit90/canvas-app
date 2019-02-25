@@ -15,10 +15,10 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class OrchestrationServiceImpl implements IOrchestrationService {
 
     @Autowired
-    RuleEngine ruleEngine;//= new RuleEngine();
+    RuleEngine ruleEngine;
 
     @Autowired
-    RequestProcessor requestProcessor;// = new RequestProcessor();
+    RequestProcessor requestProcessor;
 
     Canvas canvas = null;
 

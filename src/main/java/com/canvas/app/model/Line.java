@@ -2,11 +2,6 @@ package com.canvas.app.model;
 
 public class Line extends Shape {
 
-
-    public Line(String userInput) {
-        super(userInput);
-    }
-
     public Line(Request request) {
         super(request);
     }
