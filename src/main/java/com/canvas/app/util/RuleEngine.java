@@ -5,7 +5,6 @@ import com.canvas.app.exceptions.SemanticsIncorrectException;
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static org.apache.commons.collections4.CollectionUtils.size;
@@ -13,12 +12,9 @@ import static org.apache.commons.collections4.CollectionUtils.size;
 @Component
 public class RuleEngine {
 
-    @Autowired
-    private InputParser inputParser;
-
     public Request parseUserInput(String userInput, Canvas canvas) throws Exception {
 
-        Request request = inputParser.parseInput(userInput);
+        Request request = InputParser.parseInput(userInput);
 
         if (!isSemanticallyCorrect(request))
             throw new SemanticsIncorrectException("Incorrect input semantics. Please correct your input");

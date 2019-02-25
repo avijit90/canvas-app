@@ -1,7 +1,6 @@
 package com.canvas.app.util;
 
 import com.canvas.app.model.Request;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,11 +13,10 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.CollectionUtils.size;
 
-@Component
 public class InputParser {
 
-    public Request parseInput(String userInput) {
-        String[] inputTokens = userInput.split(" ");
+    public static Request parseInput(String userInput) {
+        String[] inputTokens = userInput.trim().split(" ");
         List<String> numericTokens = getNumericTokensFromInput(inputTokens);
         List<String> alphabetTokens = getAlphabetTokensFromInput(inputTokens);
 
@@ -29,7 +27,7 @@ public class InputParser {
         return requestBuilder.build();
     }
 
-    private Map<String, Integer> getDimensions(List<String> numericTokens) {
+    private static Map<String, Integer> getDimensions(List<String> numericTokens) {
 
         Map<String, Integer> dimensions;
         if (size(numericTokens) == 2) {
@@ -49,14 +47,14 @@ public class InputParser {
         return null;
     }
 
-    private List<String> getAlphabetTokensFromInput(String[] inputTokens) {
+    private static List<String> getAlphabetTokensFromInput(String[] inputTokens) {
         if (matches("[a-zA-Z]+", inputTokens[inputTokens.length - 1])) {
             return singletonList(inputTokens[inputTokens.length - 1]);
         }
         return null;
     }
 
-    private List<String> getNumericTokensFromInput(String[] inputTokens) {
+    private static List<String> getNumericTokensFromInput(String[] inputTokens) {
         return Arrays.stream(inputTokens)
                 .filter(token -> !matches("[a-zA-Z]+", token)).collect(toList());
     }
