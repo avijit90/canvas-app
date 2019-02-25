@@ -26,7 +26,7 @@ public class DrawingServiceImpl implements IDrawingService {
     @Override
     public void drawShapes(Canvas canvas) {
         if (isNotEmpty(canvas.getShapes()))
-            canvas.getShapes().stream().forEach(shape -> shape.draw(shape.getInput(), canvas));
+            canvas.getShapes().stream().forEach(shape -> shape.draw(canvas));
     }
 
     @Override

@@ -14,13 +14,16 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 @Service
 public class OrchestrationServiceImpl implements IOrchestrationService {
 
-    @Autowired
-    RuleEngine ruleEngine;
+    public static final String EXIT = "Exit";
+    public static final String SUCCESS = "Success";
 
     @Autowired
-    RequestProcessor requestProcessor;
+    private RuleEngine ruleEngine;
 
-    Canvas canvas = null;
+    @Autowired
+    private RequestProcessor requestProcessor;
+
+    private Canvas canvas = null;
 
     @Override
     public String execute(String input) throws Exception {
@@ -28,14 +31,14 @@ public class OrchestrationServiceImpl implements IOrchestrationService {
         Request request = parse(input, canvas);
 
         if (requestProcessor.quitProgram(request))
-            return "Exit";
+            return EXIT;
 
         processRequest(request);
-        return null;
+        return SUCCESS;
     }
 
     private void checkEmptyInput(String userInput) throws EmptyInputException {
-        if (isEmpty(userInput))
+        if (isEmpty(userInput.trim()))
             throw new EmptyInputException("Input cannot be blank. Please enter some text");
     }
 

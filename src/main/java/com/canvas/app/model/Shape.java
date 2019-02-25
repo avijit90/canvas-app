@@ -4,15 +4,13 @@ import static org.apache.commons.collections4.MapUtils.getInteger;
 
 public abstract class Shape {
 
-    private String input;
-    static String DEFAULT_COLOR = "X";
+    static String DRAWING_CHAR = "X";
 
     int x1;
     int y1;
     int x2;
     int y2;
-
-    Request request;
+    private Request request;
 
     Shape(Request request) {
         this.request = request;
@@ -23,13 +21,13 @@ public abstract class Shape {
         this.y2 = getInteger(request.getDimensions(), "y2");
     }
 
-    public String getInput() {
-        return input;
+    public Request getRequest() {
+        return request;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
-    public abstract void draw(String input, Canvas canvas);
+    public abstract void draw(Canvas canvas);
 }
