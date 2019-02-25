@@ -23,10 +23,15 @@ public class OrchestrationServiceImpl implements IOrchestrationService {
     Canvas canvas = null;
 
     @Override
-    public void execute(String input) throws Exception {
+    public String execute(String input) throws Exception {
         checkEmptyInput(input);
         Request request = parse(input, canvas);
+
+        if (requestProcessor.quitProgram(request))
+            return "Exit";
+
         processRequest(request);
+        return null;
     }
 
     private void checkEmptyInput(String userInput) throws EmptyInputException {

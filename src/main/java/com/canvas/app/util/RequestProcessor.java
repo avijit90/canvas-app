@@ -3,40 +3,35 @@ package com.canvas.app.util;
 import com.canvas.app.exceptions.InvalidRequestTypeException;
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
-import com.canvas.app.model.RequestType;
 import com.canvas.app.model.Shape;
 import com.canvas.app.service.IDrawingService;
 import com.canvas.app.service.ShapeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static com.canvas.app.model.RequestType.*;
+
 @Component
 public class RequestProcessor {
 
     @Autowired
-    ShapeFactory shapeFactory;
+    private ShapeFactory shapeFactory;
 
     @Autowired
-    IDrawingService paintService;
+    private IDrawingService paintService;
 
     public Canvas processRequest(Request request, Canvas canvas) throws InvalidRequestTypeException {
 
-        if (RequestType.QUIT == request.getRequestType()) {
-            System.exit(200);
-        } else if (RequestType.CANVAS == request.getRequestType()) {
+        if (CANVAS == request.getRequestType()) {
             canvas = new Canvas(request);
             paintService.renderCanvas(canvas);
-        } else if (RequestType.LINE == request.getRequestType()) {
+        } else if (LINE == request.getRequestType()
+                || RECTANGLE == request.getRequestType()) {
             Shape shape = shapeFactory.createShape(request);
             canvas.addShape(shape);
             paintService.drawShapes(canvas);
             paintService.renderCanvas(canvas);
-        } else if (RequestType.RECTANGLE == request.getRequestType()) {
-            Shape shape = shapeFactory.createShape(request);
-            canvas.addShape(shape);
-            paintService.drawShapes(canvas);
-            paintService.renderCanvas(canvas);
-        } else if (RequestType.BUCKET_FILL == request.getRequestType()) {
+        } else if (BUCKET_FILL == request.getRequestType()) {
             paintService.bucketFill(canvas, request);
             paintService.renderCanvas(canvas);
         } else {
@@ -44,5 +39,9 @@ public class RequestProcessor {
         }
 
         return canvas;
+    }
+
+    public boolean quitProgram(Request request) {
+        return QUIT == request.getRequestType();
     }
 }

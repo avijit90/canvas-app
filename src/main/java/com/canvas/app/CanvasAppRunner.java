@@ -8,6 +8,8 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.Scanner;
 
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+
 public class CanvasAppRunner {
 
     private IOrchestrationService orchestrationService;
@@ -28,12 +30,18 @@ public class CanvasAppRunner {
                 try {
                     System.out.print("Enter command : ");
                     String userInput = scanner.nextLine();
-                    orchestrationService.execute(userInput);
+                    String output = orchestrationService.execute(userInput);
+
+                    if (equalsIgnoreCase("Exit", output))
+                        break;
+
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue;
                 }
             }
+        } finally {
+            System.out.println("--- Shutting Down ! -----");
         }
     }
 
