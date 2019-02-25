@@ -4,7 +4,7 @@ import static org.apache.commons.collections4.MapUtils.getInteger;
 
 public abstract class Shape {
 
-    static String DRAWING_CHAR = "X";
+    public static String DRAWING_CHAR = "X";
 
     int x1;
     int y1;
