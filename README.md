@@ -2,10 +2,11 @@
 Java application to enable drawing on console.
 
 # Tech-stack
--Java 8
--Spring DI
--Mockito + JUnit : unit testing
--Maven : build tool
+- Java 8
+- Spring 5.1.5: Dependency Injection
+- Mockito + JUnit : unit testing
+- Log4j : Logging errors to output file
+- Maven : build tool
 
 # Valid Inputs
 Command 		Description
