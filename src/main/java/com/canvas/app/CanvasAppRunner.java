@@ -1,8 +1,10 @@
 package com.canvas.app;
 
 import com.canvas.app.config.AppConfig;
+import com.canvas.app.exceptions.CanvasApplicationException;
 import com.canvas.app.service.IOrchestrationService;
 import com.canvas.app.service.OrchestrationServiceImpl;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -39,12 +41,17 @@ public class CanvasAppRunner {
                     if (equalsIgnoreCase("Exit", output))
                         break;
 
-                } catch (Exception e) {
+                } catch (CanvasApplicationException e) {
                     System.out.println(e.getMessage());
                     logger.error("______________________");
-                    logger.error("input =>"+userInput);
+                    logger.error("input =>" + userInput);
                     logger.error(e);
                     continue;
+                } catch (Exception e) {
+                    System.out.println("Unexpected Error occurred. Please contact dev.");
+                    logger.error("______________________");
+                    logger.error("input =>" + userInput);
+                    logger.error(ExceptionUtils.getStackTrace(e));
                 }
             }
         } finally {
