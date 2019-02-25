@@ -43,7 +43,7 @@ public class CanvasAppRunner {
                     System.out.println(e.getMessage());
                     logger.error("______________________");
                     logger.error("input =>"+userInput);
-                    logger.error(e.getMessage(), e);
+                    logger.error(e);
                     continue;
                 }
             }
