@@ -43,7 +43,7 @@ public class OrchestrationServiceImpl implements IOrchestrationService {
     }
 
     private Request parse(String input, Canvas canvas) throws Exception {
-        return ruleEngine.parseUserInput(input, canvas);
+        return ruleEngine.parseAndValidateInput(input, canvas);
     }
 
     private void processRequest(Request request) throws InvalidRequestTypeException {

@@ -1,17 +1,23 @@
 package com.canvas.app.util;
 
+import com.canvas.app.exceptions.CanvasBoundaryBreachedException;
 import com.canvas.app.exceptions.CanvasUndefinedException;
+import com.canvas.app.exceptions.InvalidLineCoordinatesException;
 import com.canvas.app.exceptions.SemanticsIncorrectException;
+import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,7 +35,7 @@ public class RuleEngineTest {
     public void givenValidCanvasInput_ThenShouldGiveRequestObject() throws Exception {
         String input = "c 40 10";
 
-        Request response = unit.parseUserInput(input, null);
+        Request response = unit.parseAndValidateInput(input, null);
 
         assertNotNull(response);
         assertEquals(RequestType.CANVAS, response.getRequestType());
@@ -40,13 +46,39 @@ public class RuleEngineTest {
     @Test(expected = SemanticsIncorrectException.class)
     public void givenInvalidBucketFillInput_ThenShouldThrowException() throws Exception {
         String input = "b 40 10";
-        unit.parseUserInput(input, null);
+        unit.parseAndValidateInput(input, null);
     }
 
     @Test(expected = CanvasUndefinedException.class)
-    public void givenValidLineInputWithoutCanvas_ThenShouldThrowException() throws Exception {
+    public void givenInvalidLineInputWithoutCanvas_ThenShouldThrowException() throws Exception {
         String input = "l 40 10 50 10";
 
-        unit.parseUserInput(input, null);
+        unit.parseAndValidateInput(input, null);
+    }
+
+    @Test(expected = CanvasBoundaryBreachedException.class)
+    public void givenRequestWithInvalidDimensions_ThenShouldThrowException() throws Exception {
+        String input = "l 0 10 50 10";
+        Canvas canvas = Mockito.mock(Canvas.class);
+
+        unit.parseAndValidateInput(input, canvas);
+    }
+
+    @Test(expected = InvalidLineCoordinatesException.class)
+    public void givenRequestWithInvalidCoordinates_ThenShouldThrowException() throws Exception {
+        String input = "l 1 2 3 4";
+        Canvas canvas = Mockito.mock(Canvas.class);
+
+        unit.parseAndValidateInput(input, canvas);
+    }
+
+    @Test(expected = CanvasBoundaryBreachedException.class)
+    public void givenRequestOutsideCanvas_ThenShouldThrowException() throws Exception {
+        String input = "b 100 200 c";
+        Canvas canvas = Mockito.mock(Canvas.class);
+
+        unit.parseAndValidateInput(input, canvas);
+        verify(canvas).getHeight();
+        verify(canvas).getWidth();
     }
 }

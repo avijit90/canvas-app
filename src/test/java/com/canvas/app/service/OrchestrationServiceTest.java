@@ -43,14 +43,14 @@ public class OrchestrationServiceTest {
     public void givenAValidQuitInput_ThenShouldExecute() throws Exception {
         String input = "q ";
         Request request = mock(Request.class);
-        when(ruleEngine.parseUserInput(input, null)).thenReturn(request);
+        when(ruleEngine.parseAndValidateInput(input, null)).thenReturn(request);
         when(requestProcessor.quitProgram(request)).thenReturn(true);
 
         String result = unit.execute(input);
 
         assertNotNull(result);
         assertEquals("Exit", result);
-        verify(ruleEngine).parseUserInput(input, null);
+        verify(ruleEngine).parseAndValidateInput(input, null);
         verify(requestProcessor).quitProgram(request);
         verify(requestProcessor, times(0)).processRequest(request, null);
     }
@@ -59,14 +59,14 @@ public class OrchestrationServiceTest {
     public void givenAValidDrawInput_ThenShouldExecute() throws Exception {
         String input = "l 1 2 3 2";
         Request request = mock(Request.class);
-        when(ruleEngine.parseUserInput(input, null)).thenReturn(request);
+        when(ruleEngine.parseAndValidateInput(input, null)).thenReturn(request);
         when(requestProcessor.quitProgram(request)).thenReturn(false);
 
         String result = unit.execute(input);
 
         assertNotNull(result);
         assertEquals("Success", result);
-        verify(ruleEngine).parseUserInput(input, null);
+        verify(ruleEngine).parseAndValidateInput(input, null);
         verify(requestProcessor).quitProgram(request);
         verify(requestProcessor).processRequest(request, null);
     }
