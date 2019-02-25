@@ -5,11 +5,10 @@ Java application to enable drawing on console.
 - Java 8
 - Spring 5.1.5: Dependency Injection
 - Mockito + JUnit : unit testing
-- Log4j : Logging errors to output file
+- Log4j : Logging errors to output file located at ./logs/canvas-app.log
 - Maven : build tool
 
 # Valid Inputs
-
 - __C w h__ : Should create a new canvas of width w and height h.
 - __L x1 y1 x2 y2__ : Should create a new line from _(x1,y1)_ to _(x2,y2)_. Currently only horizontal or vertical lines are - supported. Horizontal and vertical lines will be drawn using the 'x' character.
 - __R x1 y1 x2 y2__ : Should create a new rectangle, whose upper left corner is _(x1,y1)_ and lower right corner is _(x2,y2)_. Horizontal and vertical lines will be drawn using the 'x' character.

@@ -48,7 +48,7 @@ public class InputParser {
     }
 
     private static List<String> getAlphabetTokensFromInput(String[] inputTokens) {
-        if (matches("[a-zA-Z]+", inputTokens[inputTokens.length - 1])) {
+        if (matches(".*[a-zA-Z]+.*", inputTokens[inputTokens.length - 1])) {
             return singletonList(inputTokens[inputTokens.length - 1]);
         }
         return null;
@@ -56,6 +56,6 @@ public class InputParser {
 
     private static List<String> getNumericTokensFromInput(String[] inputTokens) {
         return Arrays.stream(inputTokens)
-                .filter(token -> !matches("[a-zA-Z]+", token)).collect(toList());
+                .filter(token -> !matches(".*[a-zA-Z]+.*", token)).collect(toList());
     }
 }
