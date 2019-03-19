@@ -18,3 +18,6 @@ Java application to enable drawing on console.
 # Build
 - uber JAR: java -jar canvas-app-1.0-SNAPSHOT-jar-with-dependencies.jar
 - Create new jar: mvn clean install
+
+# Mutation Coverage
+mvn org.pitest:pitest-maven:mutationCoverage

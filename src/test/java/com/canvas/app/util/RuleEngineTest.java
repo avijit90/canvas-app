@@ -16,8 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,12 +34,58 @@ public class RuleEngineTest {
     public void givenValidCanvasInput_ThenShouldGiveRequestObject() throws Exception {
         String input = "c 40 10";
 
-        Request response = unit.parseAndValidateInput(input, null);
+        Request requestObj = unit.parseAndValidateInput(input, null);
 
-        assertNotNull(response);
-        assertEquals(RequestType.CANVAS, response.getRequestType());
-        assertEquals(of("x1", 40, "y1", 10), response.getDimensions());
-        assertNull(response.getColor());
+        assertNotNull(requestObj);
+        assertEquals(RequestType.CANVAS, requestObj.getRequestType());
+        assertEquals(of("x1", 40, "y1", 10), requestObj.getDimensions());
+        assertNull(requestObj.getColor());
+    }
+
+    @Test
+    public void givenValidRectangleRequestWithinCanvas_ThenShouldGiveRequestObject() throws Exception {
+        String input = "R 10 20 15 25";
+        Canvas canvas = mock(Canvas.class);
+        when(canvas.getWidth()).thenReturn(100);
+        when(canvas.getHeight()).thenReturn(200);
+
+        Request requestObj = unit.parseAndValidateInput(input, canvas);
+
+        assertNotNull(requestObj);
+        assertEquals(RequestType.RECTANGLE, requestObj.getRequestType());
+        assertEquals(requestObj.getDimensions().get("x1"), new Integer(10));
+        assertEquals(requestObj.getDimensions().get("y1"), new Integer(20));
+        assertEquals(requestObj.getDimensions().get("y2"), new Integer(25));
+        assertEquals(requestObj.getDimensions().get("x2"), new Integer(15));
+    }
+
+    @Test(expected = CanvasBoundaryBreachedException.class)
+    public void givenLineRequestBreachingCanvas_ThenShouldThrowException() throws Exception {
+        String input = "L 10 20 10 25";
+        Canvas canvas = mock(Canvas.class);
+        when(canvas.getWidth()).thenReturn(10);
+        when(canvas.getHeight()).thenReturn(10);
+
+        unit.parseAndValidateInput(input, canvas);
+        verify(canvas).getWidth();
+    }
+
+    @Test
+    public void givenValidBucketFillRequestWithinCanvas_ThenShouldGiveRequestObject() throws Exception {
+        String input = "B 15 25 i";
+        Canvas canvas = mock(Canvas.class);
+        when(canvas.getWidth()).thenReturn(100);
+        when(canvas.getHeight()).thenReturn(200);
+
+        Request requestObj = unit.parseAndValidateInput(input, canvas);
+
+        assertNotNull(requestObj);
+        assertEquals(RequestType.BUCKET_FILL, requestObj.getRequestType());
+        assertEquals(requestObj.getDimensions().get("x1"), new Integer(15));
+        assertEquals(requestObj.getDimensions().get("y1"), new Integer(25));
+        assertEquals(requestObj.getColor(), "i");
+        verify(canvas).getWidth();
+        verify(canvas).getHeight();
     }
 
     @Test(expected = SemanticsIncorrectException.class)
