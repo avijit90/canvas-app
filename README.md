@@ -21,3 +21,28 @@ Java application to enable drawing on console.
 
 # Mutation Coverage
 mvn org.pitest:pitest-maven:mutationCoverage
+
+Example:
+{::nomarkdown}
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>13</td>
+            <td>94% <div class="coverage_bar"><div class="coverage_complete width-94"></div><div class="coverage_legend">233/249</div></div></td>
+            <td>75% <div class="coverage_bar"><div class="coverage_complete width-75"></div><div class="coverage_legend">144/191</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+{:/}

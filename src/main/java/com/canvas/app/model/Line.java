@@ -22,8 +22,5 @@ public class Line extends Shape {
                 }
             }
         }
-
-        canvas.setMatrix(matrix);
-
     }
 }

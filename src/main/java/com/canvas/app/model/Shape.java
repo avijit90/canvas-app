@@ -25,9 +25,5 @@ public abstract class Shape {
         return request;
     }
 
-    public void setRequest(Request request) {
-        this.request = request;
-    }
-
     public abstract void draw(Canvas canvas);
 }

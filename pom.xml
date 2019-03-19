@@ -88,6 +88,7 @@
                     <avoidCallsTo>
                         <avoidCallsTo>com.canvas.app.CanvasAppRunner</avoidCallsTo>
                         <avoidCallsTo>com.canvas.app.util.DrawingHelper</avoidCallsTo>
+                        <avoidCallsTo>java.io.PrintStream</avoidCallsTo>
                     </avoidCallsTo>
                 </configuration>
             </plugin>
