@@ -88,6 +88,16 @@ public class RuleEngineTest {
         verify(canvas).getHeight();
     }
 
+    @Test
+    public void givenValidQuitRequest_ThenShouldGiveRequestObject() throws Exception{
+        String input = "Q";
+        Canvas canvas = mock(Canvas.class);
+
+        Request request = unit.parseAndValidateInput(input, canvas);
+        assertNotNull(request);
+        assertEquals(request.getRequestType(), RequestType.QUIT);
+    }
+
     @Test(expected = SemanticsIncorrectException.class)
     public void givenInvalidBucketFillInput_ThenShouldThrowException() throws Exception {
         String input = "b 40 10";

@@ -51,7 +51,7 @@ public class RuleEngine {
                 || (getInteger(request.getDimensions(), "y1") > canvas.getHeight())));
     }
 
-    public boolean isGeometricallyValid(Request request) {
+    private boolean isGeometricallyValid(Request request) {
         return request.getRequestType() == RequestType.LINE
                 && getInteger(request.getDimensions(), "x1") != getInteger(request.getDimensions(), "x2")
                 && getInteger(request.getDimensions(), "y1") != getInteger(request.getDimensions(), "y2");
