@@ -21,8 +21,8 @@ Java application to enable drawing on console.
 
 # Mutation Coverage
 mvn org.pitest:pitest-maven:mutationCoverage
-
-Example:
+Generated in the target folder under pit-reports.
+Report folder format : yyyyMMddHHmm
 
 <h1>Pit Test Coverage Report</h1>
 
