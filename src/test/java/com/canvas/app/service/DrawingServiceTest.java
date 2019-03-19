@@ -4,6 +4,7 @@ import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.Shape;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,11 +40,13 @@ public class DrawingServiceTest {
     public void givenLineRequest_ThenShouldDrawLine() {
         Canvas canvas = mock(Canvas.class);
         Shape shape = mock(Shape.class);
-        canvas.addShape(shape);
+        when(canvas.getShapes()).thenReturn(Lists.newArrayList(shape));
 
         unit.drawShapes(canvas);
 
         verify(shape, times(canvas.getShapes().size())).draw(canvas);
+        verify(canvas, times(3)).getShapes();
+        canvas.getShapes().forEach( s -> verify(s).draw(eq(canvas)));
     }
 
     @Test
