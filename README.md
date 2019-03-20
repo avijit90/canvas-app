@@ -20,6 +20,15 @@ Java application to enable drawing on console.
 - Create new jar: mvn clean install
 
 # Mutation Coverage
-- mvn org.pitest:pitest-maven:mutationCoverage
-- Generated in the target folder under pit-reports.
+- run command : mvn test
+- followed by : mvn org.pitest:pitest-maven:mutationCoverage
+- Report generated in the target folder under pit-reports.
 - Report folder format : yyyyMMddHHmm
+- Note: Model classes are implicitly covered from the calling classes and hence no special tests written for model classes.
+However, as observed in mutation report, the functionality is covered and verified from other calling classes.
+- The goal for this project was to have a overall mutation score of 75%, which has been achieved.
+
+# Integration Test
+- Integration tests added under test folder. Class is suffixed by *IT.java
+- Since this is a command line application which directs verifiable output to the console,
+I have written tests which are limited to success or exception testing.
