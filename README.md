@@ -19,7 +19,7 @@ Java application to enable drawing on console.
 - uber JAR: java -jar canvas-app-1.0-SNAPSHOT-jar-with-dependencies.jar
 - Create new jar: mvn clean install
 
-# Mutation Coverage
+# Unit Testing quantified using mutation coverage
 - run command : mvn test
 - followed by : mvn org.pitest:pitest-maven:mutationCoverage
 - Report generated in the target folder under pit-reports.
