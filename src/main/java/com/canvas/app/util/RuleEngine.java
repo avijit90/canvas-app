@@ -7,6 +7,7 @@ import com.canvas.app.exceptions.SemanticsIncorrectException;
 import com.canvas.app.model.Canvas;
 import com.canvas.app.model.Request;
 import com.canvas.app.model.RequestType;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -16,6 +17,8 @@ import static org.apache.commons.collections4.MapUtils.getInteger;
 
 @Component
 public class RuleEngine {
+
+    final static Logger logger = Logger.getLogger(RuleEngine.class);
 
     public Request parseAndValidateInput(String userInput, Canvas canvas) throws Exception {
         Request request = InputParser.parseInput(userInput);
@@ -38,6 +41,8 @@ public class RuleEngine {
 
         if (isCanvasBoundaryBreached(canvas, request))
             throw new CanvasBoundaryBreachedException("Requested coordinates exceed the canvas boundary. Please correct your input");
+
+        logger.info("Valid user input received. All Rules passed.");
     }
 
     private boolean isCanvasBoundaryBreached(Canvas canvas, Request request) {
