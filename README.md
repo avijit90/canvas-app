@@ -3,10 +3,10 @@ Java application to enable drawing on console.
 
 # Tech-stack
 - Java 8
-- Spring 5.1.5: Dependency Injection
-- Mockito + JUnit : unit testing
-- Log4j : Logging errors to output file located at ./logs/canvas-app.log
-- Maven : build tool
+- Spring 5.1.5
+- Mockito + JUnit
+- Log4j
+- Maven
 
 # Valid Inputs
 - __C w h__ : Should create a new canvas of width w and height h.
