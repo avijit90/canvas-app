@@ -1,4 +1,4 @@
-# canvas-app
+# canvas-app [![Build Status](https://travis-ci.org/avijit90/canvas-app.svg?branch=master)](https://travis-ci.org/avijit90/canvas-app)
 Java application to enable drawing on console.
 
 # Tech-stack
